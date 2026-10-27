@@ -1,0 +1,6 @@
+@Encurtador_HostAddress = http://localhost:5105
+
+GET {{Encurtador_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
