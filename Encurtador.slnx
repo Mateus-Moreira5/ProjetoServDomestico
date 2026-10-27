@@ -2,4 +2,7 @@
   <Folder Name="/src/">
     <Project Path="src/Encurtador/Encurtador.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Encurtador.Tests/Encurtador.Tests.csproj" />
+  </Folder>
 </Solution>
