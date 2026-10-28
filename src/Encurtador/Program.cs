@@ -17,6 +17,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+if (app.Configuration.GetValue<bool>("AplicarMigrations"))
+{
+    using var scope = app.Services.CreateScope();
+    scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
+}
+
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 app.MapPost("/links", async (CriarLinkRequest req, AppDbContext db) =>

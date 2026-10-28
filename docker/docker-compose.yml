@@ -1,0 +1,35 @@
+name: encurtador
+
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: encurtador
+      POSTGRES_USER: encurtador
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - dados-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U encurtador -d encurtador"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: encurtador-api:compose
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__Default: Host=db;Port=5432;Database=encurtador;Username=encurtador;Password=${POSTGRES_PASSWORD}
+      AplicarMigrations: "true"
+    ports:
+      - "8080:8080"
+
+volumes:
+  dados-postgres:
