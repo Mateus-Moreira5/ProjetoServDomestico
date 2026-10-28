@@ -6,7 +6,7 @@ public static class GeradorDeCodigo
 {
     private const string Alfabeto = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    public static string Gerar(int tamanho = 7)
+    public static string Gerar(int tamanho = 8)
     {
         return string.Create(tamanho, 0, (span, _) =>
         {
